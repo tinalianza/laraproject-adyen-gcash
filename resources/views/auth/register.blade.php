@@ -14,7 +14,7 @@
         <h6><span class="please">Please fill out the following information.</span> <span class="ensure">Ensure all information is correct before submitting your application, as it cannot be changed once submitted.</span></h6>
     </div>
 
-    <form method="POST" action="{{ route('register.submit') }}" enctype="multipart/form-data">
+    <form id="registration-form" method="POST" action="{{ route('application-confirmation') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group-checkbox">
             <label for="allow-sticker">
@@ -35,10 +35,10 @@
                     <label for="applicant-type">Applicant Type:</label>
                     <select id="applicant-type" name="applicant_type" required>
                         <option value="" disabled selected>Select Applicant Type</option>
-                        <option value="bu-personnel">BU Personnel</option>
-                        <option value="non-personnel">Non-Personnel</option>
-                        <option value="student">Student</option>
-                        <option value="vip">VIP</option>
+                        <option value="BU-personnel">BU Personnel</option>
+                        <option value="Non-Personnel">Non-Personnel</option>
+                        <option value="Student">Student</option>
+                        <option value="VIP">VIP</option>
                     </select>
                 </div>
 
@@ -160,6 +160,21 @@
         // Toggle initial state on page load
         toggleFormFields();
         calculateTotalDue();
+
+        // Save form data to localStorage before submitting the form
+        const form = document.getElementById('registration-form');
+        form.addEventListener('submit', function(event) {
+            const formData = {
+                name: document.getElementById('name').value,
+                applicant_type: document.getElementById('applicant-type').value,
+                contact_no: document.getElementById('contact-no').value,
+                email: document.getElementById('email').value,
+                application_date: new Date().toLocaleDateString(),
+                vehicle_model: document.getElementById('vehicle-model').value,
+                plate_number: document.getElementById('plate-number').value,
+            };
+            localStorage.setItem('applicationData', JSON.stringify(formData));
+        });
     });
 </script>
 

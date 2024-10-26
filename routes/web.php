@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ApplicationPendingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +53,5 @@ Route::middleware([
 Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegistrationController::class, 'register'])->name('register.submit');
 
-Route::post('/initiate-payment', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
-Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
-
+Route::post('/application-confirmation', [ApplicationController::class, 'confirmApplication'])->name('application-confirmation');
+Route::post('/application-pending', [ApplicationPendingController::class, 'doneApplication'])->name('application-pending');
